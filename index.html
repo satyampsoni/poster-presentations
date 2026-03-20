@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KubeCon 2026  Newspaper Poster</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #c8b89a;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+  }
+
+  .newspaper {
+    width: 900px;
+    background: #f5edd8;
+    border: 3px double #1a1208;
+    box-shadow: 6px 6px 0 #8a7a5a, 12px 12px 0 #5a4a2a;
+    position: relative;
+  }
+
+  /* ── PAPER TEXTURE ── */
+  .newspaper::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(26,18,8,0.04) 27px, rgba(26,18,8,0.04) 28px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .newspaper > * { position: relative; z-index: 1; }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 4px double #1a1208;
+    padding: 10px 20px 8px;
+    text-align: center;
+    background: #f0e4c4;
+  }
+
+  .masthead-topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 8.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #3a2a10;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid #8a7a5a;
+    padding-bottom: 4px;
+  }
+
+  .edition-flag {
+    background: #1a1208;
+    color: #f5edd8;
+    padding: 2px 8px;
+    font-size: 8px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  .conf-name {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 46px;
+    color: #1a1208;
+    line-height: 1;
+    margin: 4px 0 2px;
+    letter-spacing: .02em;
+  }
+
+  .main-headline {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #1a1208;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    margin: 4px 0;
+  }
+
+  .byline-master {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #5a3a10;
+    margin: 3px 0 6px;
+    letter-spacing: .04em;
+  }
+
+  .masthead-bottomline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #5a4a2a;
+    border-top: 1px solid #8a7a5a;
+    padding-top: 4px;
+    margin-top: 4px;
+  }
+
+  .ornament { color: #8a6a2a; font-size: 14px; }
+
+  /* ── COLUMN RULES ── */
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border-bottom: 2px double #1a1208;
+  }
+
+  .col {
+    padding: 12px 16px;
+    border-right: 1px solid #8a7a5a;
+    overflow: hidden;
+  }
+  .col:last-child { border-right: none; }
+
+  .col-label {
+    font-size: 7.5px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #8a6a2a;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid #8a7a5a;
+    padding-bottom: 3px;
+    margin-bottom: 8px;
+  }
+
+  .col-headline {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1208;
+    line-height: 1.25;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: .01em;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .drop-cap::first-letter {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    float: left;
+    line-height: .8;
+    margin: 2px 4px 0 0;
+    color: #1a1208;
+  }
+
+  .body-text {
+    font-size: 9.5px;
+    line-height: 1.65;
+    color: #2a1a08;
+    text-align: justify;
+    hyphens: auto;
+    margin-bottom: 7px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .pull-quote {
+    border-top: 2px solid #1a1208;
+    border-bottom: 2px solid #1a1208;
+    padding: 5px 8px;
+    margin: 8px 0;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-style: italic;
+    font-size: 11px;
+    color: #1a1208;
+    text-align: center;
+    line-height: 1.35;
+  }
+
+  /* ── SVG DIAGRAMS ── */
+  .diagram-wrap {
+    border: 1px solid #8a7a5a;
+    background: #ede0c0;
+    margin: 8px 0;
+    padding: 6px;
+  }
+  .diagram-caption {
+    font-size: 8px;
+    font-style: italic;
+    color: #5a4a2a;
+    text-align: center;
+    margin-top: 3px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+  }
+
+  svg.diag { width: 100%; height: auto; display: block; }
+
+  /* ── BULLET ITEMS ── */
+  .issue-item {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+    align-items: flex-start;
+  }
+  .issue-bullet {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    color: #8a2a0a;
+    font-size: 10px;
+    flex-shrink: 0;
+    line-height: 1.4;
+    width: 12px;
+    text-align: center;
+  }
+  .issue-text {
+    font-size: 9px;
+    line-height: 1.55;
+    color: #2a1a08;
+    flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .issue-text strong {
+    font-weight: 700;
+    color: #1a1208;
+  }
+
+  /* ── INSET BOX ── */
+  .inset-box {
+    border: 1.5px solid #5a4a2a;
+    background: #ede0c0;
+    padding: 8px 10px;
+    margin: 10px 0;
+  }
+  .inset-box-title {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #1a1208;
+    border-bottom: 1px solid #8a7a5a;
+    margin-bottom: 6px;
+    padding-bottom: 3px;
+  }
+  .inset-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    align-items: flex-start;
+  }
+  .inset-row:last-child {
+    margin-bottom: 0;
+  }
+  .inset-tag {
+    font-size: 7px;
+    padding: 2px 0;
+    background: #1a1208;
+    color: #f5edd8;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    letter-spacing: .05em;
+    margin-top: 1px;
+    line-height: 1.3;
+    min-width: 52px;
+    text-align: center;
+  }
+  .inset-text {
+    font-size: 8.5px;
+    line-height: 1.5;
+    color: #2a1a08;
+    flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* ── BOTTOM FULL-WIDTH BAND ── */
+  .bottom-band {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0;
+    border-bottom: 2px double #1a1208;
+  }
+  .band-cell {
+    padding: 10px 12px;
+    border-right: 1px solid #8a7a5a;
+  }
+  .band-cell:last-child { border-right: none; }
+  .band-num {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #8a2a0a;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .band-title {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #1a1208;
+    margin-bottom: 3px;
+    border-bottom: 1px solid #8a7a5a;
+    padding-bottom: 3px;
+  }
+  .band-body {
+    font-size: 8.5px;
+    line-height: 1.55;
+    color: #3a2a10;
+    text-align: justify;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 16px;
+    background: #1a1208;
+  }
+  .footer-text {
+    font-size: 7.5px;
+    color: #c8b89a;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+  }
+  .footer-urls {
+    font-size: 7.5px;
+    color: #c8b89a;
+    font-style: italic;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+  }
+
+  /* ── HORIZONTAL RULE ── */
+  hr.col-rule {
+    border: none;
+    border-top: 1px solid #8a7a5a;
+    margin: 7px 0;
+  }
+
+  .section-subhead {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #1a1208;
+    margin: 7px 0 4px;
+  }
+
+  code.mono {
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    background: #ddd0a8;
+    padding: 0 3px;
+    border: 1px solid #8a7a5a;
+    color: #1a1208;
+    word-break: break-all;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 5px;
+  }
+  .flow-num {
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #f5edd8;
+    background: #1a1208;
+    width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+    font-size: 9px;
+  }
+  .flow-text {
+    font-size: 8.5px;
+    line-height: 1.5;
+    color: #2a1a08;
+    flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .flow-text strong { color: #1a1208; }
+</style>
+</head>
+<body>
+<div class="newspaper">
+
+  <!-- ══ MASTHEAD ══ -->
+  <div class="masthead">
+    <div class="masthead-topline">
+      <span>Amsterdam, Netherlands· March 2026</span>
+    </div>
+
+    <div class="conf-name">KubeCon + CloudNativeCon 2026</div>
+    <div class="main-headline">Kubernetes as the Universal GPU Control Plane</div>
+    <div class="byline-master">By Rudraksh Karpe &amp; Satyam Soni &nbsp;·&nbsp; Kubernetes &amp; HAMi &amp; KAITO Project</div>
+
+    <div class="masthead-bottomline">
+      <span>HAMi · Device Virtualization</span>
+      <span class="ornament">✦ ✦ ✦</span>
+      <span>KAITO · Workload Automation</span>
+      <span class="ornament">✦ ✦ ✦</span>
+      <span>Kubernetes . Orchestration </span>
+    </div>
+  </div>
+
+  <!-- ══ THREE COLUMN BODY ══ -->
+  <div class="body-grid">
+
+    <!-- ── COL 1: THE PROBLEM ── -->
+    <div class="col">
+      <div class="col-label">§ I &nbsp;·&nbsp; The Problem</div>
+      <div class="col-headline">The GPU Allocation Crisis Crippling AI on Kubernetes</div>
+
+      <p class="body-text drop-cap">
+        AI workloads are driving extraordinary demand for GPUs and AI accelerators across every tier of the industry. Yet the default Kubernetes model still leans on vendor-specific device plugins that tie workloads to particular hardware, severely complicating portability across heterogeneous clusters.
+      </p>
+
+      <!-- Diagram 1: monolithic problem -->
+      <div class="diagram-wrap">
+        <svg class="diag" viewBox="0 0 260 190">
+          <defs><marker id="ax" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#8a2a0a" stroke-width="1.5"/></marker></defs>
+
+          <rect x="4" y="4" width="252" height="182" rx="3" fill="none" stroke="#8a7a5a" stroke-width="1"/>
+          <text x="12" y="18" font-family="'Inter',sans-serif" font-size="8" fill="#5a4a2a">Kubernetes node</text>
+
+          <!-- GPU monolithic block -->
+          <rect x="10" y="26" width="240" height="56" rx="2" fill="#f0dcc0" stroke="#8a2a0a" stroke-width="1.2"/>
+          <!-- Header label for the GPU block -->
+          <text x="140" y="40" font-family="'Courier New',monospace" font-size="7.5" fill="#8a2a0a" text-anchor="middle">nvidia.com/gpu: 1  (40 GB · fully reserved)</text>
+          <!-- used tiny fill -->
+          <rect x="12" y="28" width="28" height="52" rx="1" fill="#c8a080"/>
+          <text x="26" y="58" font-family="'Courier New',monospace" font-size="7" fill="#3a1a08" text-anchor="middle">4 GB</text>
+          <!-- wasted -->
+          <rect x="42" y="28" width="206" height="52" rx="0" fill="#8a2a0a" fill-opacity=".06"/>
+          <text x="145" y="56" font-family="'Inter',sans-serif" font-size="8" fill="#8a2a0a" text-anchor="middle" font-style="italic">36 GB wasted  inaccessible to all other pods</text>
+
+          <!-- Pod A using it -->
+          <rect x="10" y="100" width="110" height="36" rx="2" fill="#e8d8b0" stroke="#8a7a5a" stroke-width=".8"/>
+          <text x="65" y="115" font-family="'Inter',sans-serif" font-size="8" fill="#2a1a08" text-anchor="middle">Pod A  (running)</text>
+          <text x="65" y="128" font-family="'Courier New',monospace" font-size="7" fill="#5a4a2a" text-anchor="middle">uses ~4 GB of 40 GB</text>
+
+          <!-- Pod B blocked -->
+          <rect x="135" y="100" width="115" height="36" rx="2" fill="#f5edd8" stroke="#8a2a0a" stroke-width=".8" stroke-dasharray="3,2"/>
+          <text x="192" y="115" font-family="'Inter',sans-serif" font-size="8" fill="#8a2a0a" text-anchor="middle">Pod B  (blocked)</text>
+          <text x="192" y="128" font-family="'Courier New',monospace" font-size="7" fill="#8a2a0a" text-anchor="middle">0/1 GPU available</text>
+
+          <line x1="65" y1="100" x2="65" y2="86" stroke="#5a4a2a" stroke-width=".7" marker-end="url(#ax)"/>
+          <line x1="192" y1="100" x2="192" y2="86" stroke="#8a2a0a" stroke-width=".7" stroke-dasharray="2,2"/>
+          <text x="192" y="90" font-family="'Inter',sans-serif" font-size="7" fill="#8a2a0a" text-anchor="middle" font-style="italic">no GPU free</text>
+
+          <text x="130" y="158" font-family="'Inter',sans-serif" font-style="italic" font-size="8" fill="#5a4a2a" text-anchor="middle">Vendor plugin: opaque, indivisible, immovable</text>
+        </svg>
+        <div class="diagram-caption">Fig. I  Monolithic GPU allocation under default Kubernetes device plugin model</div>
+      </div>
+
+      <p class="body-text">
+        The scheduler treats GPUs as entirely opaque, non-shareable units with zero awareness of finer-grained characteristics such as available memory, compute utilization, or hardware topology  including NUMA boundaries and PCIe locality. This blindness leads directly to over-allocation, fragmentation, and tight vendor coupling.
+      </p>
+
+      <div class="pull-quote">"A 40 GB A100 consumed by a workload needing 4 GB  90% of the silicon sits idle while other jobs queue."</div>
+
+      <div class="section-subhead">Root Causes Identified</div>
+      <div class="issue-item"><span class="issue-bullet">✗</span><div class="issue-text"><strong>No sub-GPU sharing</strong>  one pod locks the entire device regardless of actual memory use</div></div>
+      <div class="issue-item"><span class="issue-bullet">✗</span><div class="issue-text"><strong>Vendor lock-in</strong>  <code class="mono">nvidia.com/gpu</code> is meaningless on AMD, Hygon, or Cambricon nodes</div></div>
+      <div class="issue-item"><span class="issue-bullet">✗</span><div class="issue-text"><strong>Topology blindness</strong>  scheduler ignores NUMA distance, PCIe bandwidth, NVLink affinity</div></div>
+      <div class="issue-item"><span class="issue-bullet">✗</span><div class="issue-text"><strong>Fragmentation</strong>  small jobs scatter across nodes, large training runs cannot gang-schedule</div></div>
+      <div class="issue-item"><span class="issue-bullet">✗</span><div class="issue-text"><strong>Operational toil</strong>  no native primitive to deploy, version, or scale AI models as first-class objects</div></div>
+    </div>
+
+    <!-- ── COL 2: THE SOLUTION ── -->
+    <div class="col">
+      <div class="col-label">§ II &nbsp;·&nbsp; The Solution</div>
+      <div class="col-headline">HAMi + KAITO: A Unified Abstraction Across All Accelerators</div>
+
+      <p class="body-text drop-cap">
+        Presenting a more unified alternative: coupling HAMi's device virtualization and unified scheduling abstraction with KAITO's AI workload automation, together transforming Kubernetes into a cross-vendor GPU control plane.
+      </p>
+
+      <!-- Diagram 2: HAMi slicing -->
+      <div class="diagram-wrap">
+        <svg class="diag" viewBox="0 0 260 210">
+          <defs>
+            <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#2a5a2a" stroke-width="1.5"/></marker>
+            <marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#1a3a6a" stroke-width="1.5"/></marker>
+          </defs>
+
+          <!-- Physical GPU bar -->
+          <rect x="4" y="4" width="252" height="30" rx="3" fill="#ddd0a8" stroke="#5a4a2a" stroke-width="1"/>
+          <text x="130" y="17" font-family="'Courier New',monospace" font-size="8" fill="#2a1a08" text-anchor="middle">Physical GPU · 40 GB · any vendor</text>
+          <text x="130" y="29" font-family="'Inter',sans-serif" font-style="italic" font-size="7" fill="#5a4a2a" text-anchor="middle">HAMi vDevice layer CUDA intercept · no kernel patches</text>
+
+          <!-- Slices -->
+          <rect x="4" y="42" width="78" height="38" rx="2" fill="#c8d8b8" stroke="#2a5a2a" stroke-width=".8"/>
+          <text x="43" y="57" font-family="'Courier New',monospace" font-size="8" fill="#1a3a1a" text-anchor="middle">8 GB</text>
+          <text x="43" y="70" font-family="'Inter',sans-serif" font-size="7" fill="#2a5a2a" text-anchor="middle" font-style="italic">vGPU-0</text>
+
+          <rect x="88" y="42" width="78" height="38" rx="2" fill="#c8d8b8" stroke="#2a5a2a" stroke-width=".8"/>
+          <text x="127" y="57" font-family="'Courier New',monospace" font-size="8" fill="#1a3a1a" text-anchor="middle">4 GB</text>
+          <text x="127" y="70" font-family="'Inter',sans-serif" font-size="7" fill="#2a5a2a" text-anchor="middle" font-style="italic">vGPU-1</text>
+
+          <rect x="172" y="42" width="84" height="38" rx="2" fill="#c8d8b8" stroke="#2a5a2a" stroke-width=".8"/>
+          <text x="214" y="57" font-family="'Courier New',monospace" font-size="8" fill="#1a3a1a" text-anchor="middle">12 GB</text>
+          <text x="214" y="70" font-family="'Inter',sans-serif" font-size="7" fill="#2a5a2a" text-anchor="middle" font-style="italic">vGPU-2</text>
+
+          <!-- Isolation fences -->
+          <line x1="84" y1="40" x2="84" y2="81" stroke="#5a4a2a" stroke-width=".5" stroke-dasharray="2,2"/>
+          <line x1="168" y1="40" x2="168" y2="81" stroke="#5a4a2a" stroke-width=".5" stroke-dasharray="2,2"/>
+          <text x="130" y="92" font-family="'Inter',sans-serif" font-style="italic" font-size="7" fill="#5a4a2a" text-anchor="middle">memory isolation enforced per slice</text>
+
+          <!-- Pods -->
+          <rect x="4" y="102" width="78" height="32" rx="2" fill="#e8f0d8" stroke="#5a8a5a" stroke-width=".7"/>
+          <text x="43" y="116" font-family="'Inter',sans-serif" font-size="7.5" fill="#1a3a1a" text-anchor="middle">pod-inference</text>
+          <text x="43" y="128" font-family="'Courier New',monospace" font-size="6.5" fill="#2a5a2a" text-anchor="middle">8 GB · running</text>
+
+          <rect x="88" y="102" width="78" height="32" rx="2" fill="#e8f0d8" stroke="#5a8a5a" stroke-width=".7"/>
+          <text x="127" y="116" font-family="'Inter',sans-serif" font-size="7.5" fill="#1a3a1a" text-anchor="middle">pod-finetune</text>
+          <text x="127" y="128" font-family="'Courier New',monospace" font-size="6.5" fill="#2a5a2a" text-anchor="middle">4 GB · running</text>
+
+          <rect x="172" y="102" width="84" height="32" rx="2" fill="#e8f0d8" stroke="#5a8a5a" stroke-width=".7"/>
+          <text x="214" y="116" font-family="'Inter',sans-serif" font-size="7.5" fill="#1a3a1a" text-anchor="middle">pod-training</text>
+          <text x="214" y="128" font-family="'Courier New',monospace" font-size="6.5" fill="#2a5a2a" text-anchor="middle">12 GB · running</text>
+
+          <line x1="43" y1="102" x2="43" y2="82" stroke="#2a5a2a" stroke-width=".7" marker-end="url(#ag)"/>
+          <line x1="127" y1="102" x2="127" y2="82" stroke="#2a5a2a" stroke-width=".7" marker-end="url(#ag)"/>
+          <line x1="214" y1="102" x2="214" y2="82" stroke="#2a5a2a" stroke-width=".7" marker-end="url(#ag)"/>
+
+          <!-- Scheduler extensions -->
+          <rect x="4" y="144" width="252" height="50" rx="2" fill="none" stroke="#5a4a2a" stroke-width=".8" stroke-dasharray="3,2"/>
+          <text x="14" y="157" font-family="'Inter',sans-serif" font-size="7.5" fill="#5a4a2a">HAMi scheduler extensions</text>
+
+          <rect x="12" y="163" width="72" height="16" rx="2" fill="#ddd0a8" stroke="#8a7a5a" stroke-width=".6"/>
+          <text x="48" y="174" font-family="'Courier New',monospace" font-size="7" fill="#1a3a6a" text-anchor="middle">NUMA-aware</text>
+
+          <rect x="94" y="163" width="72" height="16" rx="2" fill="#ddd0a8" stroke="#8a7a5a" stroke-width=".6"/>
+          <text x="130" y="174" font-family="'Courier New',monospace" font-size="7" fill="#1a3a6a" text-anchor="middle">PCIe locality</text>
+
+          <rect x="176" y="163" width="72" height="16" rx="2" fill="#ddd0a8" stroke="#8a7a5a" stroke-width=".6"/>
+          <text x="212" y="174" font-family="'Courier New',monospace" font-size="7" fill="#1a3a6a" text-anchor="middle">bin-packing</text>
+
+          <text x="130" y="204" font-family="'Inter',sans-serif" font-style="italic" font-size="8" fill="#3a2a10" text-anchor="middle">NVIDIA · AMD · Hygon · Cambricon · Iluvatar</text>
+        </svg>
+        <div class="diagram-caption">Fig. II HAMi virtualizes one physical GPU into concurrent isolated vDevice slices</div>
+      </div>
+
+      <div class="inset-box">
+        <div class="inset-box-title">HAMi Device Virtualization Layer</div>
+        <div class="inset-row"><span class="inset-tag">Webhook</span><div class="inset-text">Mutating admission webhook rewrites pod specs, replacing <code class="mono">nvidia.com/gpu</code> with unified <code class="mono">hami.io/vgpu</code> resource requests, transparent to workloads.</div></div>
+        <div class="inset-row"><span class="inset-tag">Isolation</span><div class="inset-text">CUDA library interception enforces per-slice memory caps and compute utilization limits without hypervisor or kernel module.</div></div>
+        <div class="inset-row"><span class="inset-tag">Topology</span><div class="inset-text">Extended kube-scheduler scores nodes by NUMA distance, PCIe affinity, and NVLink bandwidth for optimal placement of gang-scheduled training jobs.</div></div>
+      </div>
+
+      <div class="inset-box">
+        <div class="inset-box-title">KAITO Workload Operator Layer</div>
+        <div class="inset-row"><span class="inset-tag">CRD</span><div class="inset-text"><code class="mono">Workspace</code> custom resource declares model, hardware class, and replica policy. KAITO reconciliation loop handles all downstream infrastructure.</div></div>
+        <div class="inset-row"><span class="inset-tag">Provision</span><div class="inset-text">Calls cloud provider node APIs to spin up accelerator nodes on demand; pulls model weights from registry; creates inference Service, all declaratively.</div></div>
+        <div class="inset-row"><span class="inset-tag">Scale</span><div class="inset-text">HPA and node autoprovisioner integration: scales pods on queue depth; terminates idle nodes to zero with no manual ops required.</div></div>
+      </div>
+    </div>
+
+    <!-- ── COL 3: BLUEPRINT ── -->
+    <div class="col">
+      <div class="col-label">§ III &nbsp;·&nbsp; The Blueprint</div>
+      <div class="col-headline">A Practical Blueprint for Heterogeneous AI Infrastructure</div>
+
+      <p class="body-text drop-cap">
+         A complete operational blueprint. HAMi abstracts every device detail  splitting, isolation, topology-aware scheduling  while KAITO automates the full workload lifecycle: model deployment, node provisioning, and elastic scaling.
+      </p>
+
+      <!-- Diagram 3: end-to-end flow -->
+      <div class="diagram-wrap">
+        <svg class="diag" viewBox="0 0 240 230">
+          <defs>
+            <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5a4a2a" stroke-width="1.5"/></marker>
+            <marker id="afg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#2a5a2a" stroke-width="1.5"/></marker>
+          </defs>
+
+          <!-- Step blocks -->
+          <rect x="4" y="4" width="232" height="30" rx="2" fill="#ddd0a8" stroke="#5a4a2a" stroke-width=".8"/>
+          <text x="22" y="16" font-family="'Courier New',monospace" font-size="7.5" fill="#1a3a6a">kubectl apply -f workspace.yaml</text>
+          <text x="22" y="28" font-family="'Courier New',monospace" font-size="7" fill="#5a4a2a">model: llama-3-8b &nbsp; resource: hami.io/vgpu</text>
+
+          <line x1="120" y1="34" x2="120" y2="46" stroke="#5a4a2a" stroke-width=".8" marker-end="url(#af)"/>
+
+          <rect x="4" y="48" width="232" height="28" rx="2" fill="#e0d4b4" stroke="#8a6a2a" stroke-width=".8"/>
+          <text x="120" y="60" font-family="'Inter',sans-serif" font-size="8" fill="#1a1208" text-anchor="middle" font-weight="bold">KAITO reconciles Workspace</text>
+          <text x="120" y="71" font-family="'IM Fell English',serif" font-style="italic" font-size="7.5" fill="#5a4a2a" text-anchor="middle">provisions GPU node · pulls model weights</text>
+
+          <line x1="120" y1="76" x2="120" y2="88" stroke="#5a4a2a" stroke-width=".8" marker-end="url(#af)"/>
+
+          <rect x="4" y="90" width="232" height="36" rx="2" fill="#c8d8b8" stroke="#2a5a2a" stroke-width=".8"/>
+          <text x="120" y="102" font-family="'Inter',sans-serif" font-size="8" fill="#1a3a1a" text-anchor="middle" font-weight="bold">HAMi mutating webhook fires</text>
+          <text x="120" y="114" font-family="'IM Fell English',serif" font-style="italic" font-size="7.5" fill="#2a5a2a" text-anchor="middle">rewrites resource → vDevice</text>
+          <text x="120" y="122" font-family="'Courier New',monospace" font-size="7" fill="#3a6a3a" text-anchor="middle">scheduler scores nodes: NUMA · PCIe · load</text>
+
+          <line x1="120" y1="126" x2="120" y2="138" stroke="#2a5a2a" stroke-width=".8" marker-end="url(#afg)"/>
+
+          <rect x="4" y="140" width="232" height="28" rx="2" fill="#c8d8b8" stroke="#2a5a2a" stroke-width=".8"/>
+          <text x="120" y="152" font-family="'Inter',sans-serif" font-size="8" fill="#1a3a1a" text-anchor="middle" font-weight="bold">vGPU slice allocated</text>
+          <text x="120" y="163" font-family="'Courier New',monospace" font-size="7" fill="#2a5a2a" text-anchor="middle">mem cap enforced · utilization tracked</text>
+
+          <line x1="120" y1="168" x2="120" y2="180" stroke="#2a5a2a" stroke-width=".8" marker-end="url(#afg)"/>
+
+          <rect x="20" y="182" width="200" height="30" rx="2" fill="#2a5a2a" stroke="#1a3a1a" stroke-width=".8"/>
+          <text x="120" y="195" font-family="'Playfair Display',serif" font-size="9" fill="#f5edd8" text-anchor="middle" font-weight="700">AI WORKLOAD RUNNING</text>
+          <text x="120" y="207" font-family="'IM Fell English',serif" font-size="7.5" fill="#9ab8a8" text-anchor="middle" font-style="italic">vendor-agnostic · shared · observable · portable</text>
+
+          <text x="120" y="224" font-family="'IM Fell English',serif" font-style="italic" font-size="8" fill="#5a4a2a" text-anchor="middle">End-to-end: declare → provision → schedule → run</text>
+        </svg>
+        <div class="diagram-caption">Fig. III  Complete request lifecycle: from Workspace declaration to running AI workload</div>
+      </div>
+
+      <div class="section-subhead">Demo Walkthrough</div>
+
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-text"><strong>HAMi splitting:</strong> Live demonstration of a single A100 serving three concurrent pods with hard memory boundaries  verified via <code class="mono">nvidia-smi</code> and HAMi metrics.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-text"><strong>Topology scheduling:</strong> Gang-scheduled training job placed on NUMA-co-located GPUs  measurable throughput improvement vs. default placement.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-text"><strong>KAITO model deploy:</strong> Single <code class="mono">kubectl apply</code> deploys Llama-3-8B  KAITO provisions node, downloads weights, creates inference endpoint in under five minutes.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-text"><strong>Cross-vendor migration:</strong> Workload originally pinned to NVIDIA relocated to AMD Instinct node  zero application changes required, HAMi abstraction layer handles all vendor differences.</div>
+      </div>
+
+      <div class="pull-quote">"One control plane. Any accelerator. Every AI workload."</div>
+
+      <p class="body-text">
+        Together, HAMi and KAITO decouple AI workloads from underlying hardware, enabling Kubernetes to function as a true cross-vendor, hardware-agnostic control plane  reducing lock-in, improving utilization, and making heterogeneous GPU infrastructure a first-class citizen of the cloud native ecosystem.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ══ BOTTOM BAND: 4 TAKEAWAYS ══ -->
+  <div class="bottom-band">
+    <div class="band-cell">
+      <div class="band-title">GPU Utilization</div>
+      <div class="band-body">Fractional vDevice allocation eliminates the single-pod-per-GPU waste pattern. Multiple workloads share one physical accelerator with enforced memory and compute isolation  bin-packing fills idle silicon that would otherwise sit dark.</div>
+    </div>
+    <div class="band-cell">
+      <div class="band-title">Vendor Lock-in</div>
+      <div class="band-body">HAMi's unified <code class="mono">hami.io/vgpu</code> resource replaces all vendor-specific device plugin annotations. Workloads declare hardware class and memory need  not a specific SKU. Migrate between NVIDIA, AMD, and Hygon without touching application manifests.</div>
+    </div>
+    <div class="band-cell">
+      <div class="band-title">Topology Awareness</div>
+      <div class="band-body">Extended scheduler scores candidate nodes by NUMA distance, PCIe bandwidth, and NVLink topology before placing pods. Gang-scheduled training jobs land on physically co-located GPUs  measurably higher collective communication throughput than default placement.</div>
+    </div>
+    <div class="band-cell">
+      <div class="band-title">Automated AI Ops</div>
+      <div class="band-body">KAITO's <code class="mono">Workspace</code> CRD turns model deployment into a single declarative object. The operator handles node provisioning, weight download, service creation, and scale-to-zero  eliminating the bespoke Helm charts, scripts, and dashboards that currently surround every model rollout.</div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <span class="footer-text">github.com/Project-HAMi/HAMi &nbsp;·&nbsp; github.com/kaito-project/kaito &nbsp;·&nbsp; kubernetes.io/sig-node</span>
+    <span class="footer-urls">KubeCon + CloudNativeCon 2026 &nbsp;·&nbsp; Rudraksh Karpe &amp; Satyam Soni &nbsp;·&nbsp; Session Poster</span>
+  </div>
+
+</div>
+</body>
+</html>
